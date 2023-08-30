@@ -1,0 +1,124 @@
+<div id="visualizer-container">
+    <h2>Skirting Board Height Visualiser</h2>
+    <p>Visualise the height of your skirting boards with our handy tool.</p>
+    <div id="visualizer">
+        <div id="skirting-board"></div>
+        <div id="door">
+            <div id="handle"></div>
+        </div>
+    </div>
+    <label for="wallHeight">Enter Wall Height (mm):</label>
+    <input type="number" id="wallHeight" aria-label="Wall Height" min="2000" max="4000" placeholder="e.g. 2400 mm" oninput="syncWallHeight('input')" value="2400">
+    <input type="range" id="wallSlider" aria-label="Wall Height Slider" min="2000" max="4000" step="1" oninput="syncWallHeight('slider')" value="2400">
+    <label for="skirtingHeight">Enter Skirting Board Height (mm):</label>
+    <input type="number" id="skirtingHeight" aria-label="Skirting Height" min="0" placeholder="e.g. 145 mm" oninput="syncSkirtingHeight('input')" value="145">
+    <input type="range" id="skirtingSlider" aria-label="Skirting Height Slider" min="0" max="500" step="1" oninput="syncSkirtingHeight('slider')" value="145">
+</div>
+<style>
+    body, p, label {
+        font-family: Arial, sans-serif;
+        color: #555;
+    }
+    body, #visualizer-container {
+        text-align: center;
+        margin: 0;
+        padding: 0;
+    }
+    h2 {
+        font-size: 1.2em;
+        color: #1B56C4;
+    }
+    #visualizer-container {
+        display: inline-block;
+        text-align: left;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        border-radius: 4px;
+        overflow: hidden;
+        background: #F6F8FA;
+        padding: 15px;
+        max-width: 100%;
+    }
+    input[type="number"], input[type="range"] {
+        width: 100%;
+        padding: 12px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 1em;
+        transition: all 0.15s; /* Smooth transition */
+    }
+    #visualizer {
+        position: relative;
+        width: 100%;
+        padding-bottom: 100%;
+        border: 1px solid #ddd;
+        background-color: #C0C0C0;
+        transition: all 0.15s; /* Smooth transition */
+    }
+    #skirting-board, #door {
+        position: absolute;
+        width: 100%;
+        background-color: #FFF;
+        transition: all 0.15s; /* Smooth transition */
+    }
+    #skirting-board {
+        border-top: 2px solid #000;
+        bottom: 0;
+    }
+    #door {
+        bottom: 0;
+        left: 10%;
+        border: 3px solid #555;
+        border-bottom: none;
+    }
+    #handle {
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        background-color: #000;
+        right: 10%;
+        top: 42%;
+        border-radius: 50%;
+        transition: all 0.15s; /* Smooth transition */
+    }
+</style>
+<script>
+    function syncWallHeight(source) {
+        let wallHeightInput = document.getElementById('wallHeight');
+        let wallSliderInput = document.getElementById('wallSlider');
+        if (source === 'input') {
+            wallSliderInput.value = wallHeightInput.value;
+        } else {
+            wallHeightInput.value = wallSliderInput.value;
+        }
+        updateVisualizer();
+    }
+    function syncSkirtingHeight(source) {
+        let skirtingHeightInput = document.getElementById('skirtingHeight');
+        let skirtingSliderInput = document.getElementById('skirtingSlider');
+        if (source === 'input') {
+            skirtingSliderInput.value = skirtingHeightInput.value;
+        } else {
+            skirtingHeightInput.value = skirtingSliderInput.value;
+        }
+        updateVisualizer();
+    }
+    function updateVisualizer() {
+        const wallHeight = parseInt(document.getElementById('wallHeight').value) || 2400;
+        const skirtingHeight = parseInt(document.getElementById('skirtingHeight').value) || 145;
+        const scale = (document.getElementById('visualizer').offsetWidth) / wallHeight;
+        document.getElementById('skirting-board').style.height = skirtingHeight * scale + 'px';
+        document.getElementById('door').style.height = 1981 * scale + 'px';
+        document.getElementById('door').style.width = 726 * scale + 'px';
+    }
+    window.addEventListener('resize', updateVisualizer);
+    updateVisualizer();
+</script>
+
+
+
+
+
+
+
