@@ -81,6 +81,10 @@
         top: 42%;
         border-radius: 50%;
         transition: all 0.15s; /* Smooth transition */
+   }
+    #visualizer-container {
+        transform: scale(0.8); /* Adjust this value as necessary, 0.8 means it's scaled down to 80% */
+        transform-origin: top left; /* This ensures the scaling starts from the top left corner */
     }
 </style>
 <script>
@@ -115,10 +119,3 @@
     window.addEventListener('resize', updateVisualizer);
     updateVisualizer();
 </script>
-
-
-
-
-
-
-
